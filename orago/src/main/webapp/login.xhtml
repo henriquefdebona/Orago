@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
+	  xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      
+
+
+<ui:define name="corpo">
+	<h:form id="frmLogin">
+	<p:dialog header="Login" minWidth="400" modal="true" closable="false" position="center" visible="true" resizable="false"> 
+		<h:panelGrid columns="2" id="container">
+		 
+			<p:outputLabel value="Login" for="txtLogin" />
+			<p:inputText id="txtLogin" required="true" value="#{loginController.login}" />
+			
+			
+			<p:outputLabel value="senha" for="txtSenha" />
+			<p:password id="txtSenha" required="true" value="#{loginController.senha}" />
+		
+			
+		</h:panelGrid>
+		<p:commandButton value="Logar" action="#{loginController.fazLogin}">
+			<p:resetInput target="container" />
+		</p:commandButton>
+		</p:dialog>
+		
+		
+	</h:form>
+</ui:define>
+
+
+</ui:composition>

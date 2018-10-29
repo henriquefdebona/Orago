@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<h:head>
+		<title>Sistema v1.0</title>
+		<meta charset = "utf-8"/>
+		<h:outputStylesheet library="projeto" name="estilos.css" />
+	</h:head>
+
+
+	<h:body>
+
+		<div id="navegacao">
+			<div id = "area">
+				<h:graphicImage library="projeto" name="logomicrosoft.png" width="200"/>
+				<div id="menu">
+					<a href="#">Página inicial</a>
+					<a href="http://localhost:8080/pweb/calculaNota.xhtml">Sistema de notas</a>
+					<a href="http://localhost:8080/pweb/cadastroTemplate.xhtml">Cadastros</a>
+					<a href="http://localhost:8080/pweb/teste.xhtml">Página de teste</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="conteudo">
+			<ui:insert name="corpo" />
+		</div>
+
+		<footer>
+			<p> Todos os direitos reservados.</p>
+		</footer>
+
+	</h:body>
+
+
+</html>

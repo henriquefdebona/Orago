@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>Sistema v1.0</title>
+	<meta charset = "utf-8"/>
+</h:head>
+
+<h:body>
+		<p:layout style="min-width:400px;min-height:600px;">
+    <p:layoutUnit position="west" resizable="true">
+        <p:menu>
+					<p:submenu label="Cadastros" icon="ui-icon-plusthick">
+						<p:menuitem value="Cadastro de Clientes" url="#" />
+						<p:menuitem value="Cadastro de Advogados" url="#" />
+						<p:menuitem value="Cadastro de Agenda" url="#" />
+						<p:menuitem value="Processos/Recursos" url="http://localhost:8080/pweb/faces/cadprocrec.xhtml" />
+					</p:submenu>
+ 
+					<p:submenu label="Consulta" icon="ui-icon-search">
+						<p:menuitem value="Clientes cadastrados" url="#" />
+						<p:menuitem value="Advogados cadastrados" url="#" />
+						<p:menuitem value="Processos/Recursos" url="http://localhost:8080/pweb/faces/cadprocrec.xhtml" />
+						<p:menuitem value="Agenda" url="#" />
+            
+					</p:submenu>
+					
+					<p:submenu>
+						<p:menuitem value="Sair do Sistema" url="http://www.primefaces.org" icon="ui-icon-close" />
+						<f:facet name="options">
+							<p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+						</f:facet>
+					</p:submenu>
+				</p:menu>
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="center">
+        <ui:insert name="corpo" style="width:5px"/>
+    </p:layoutUnit>
+</p:layout>
+</h:body>
+</html>

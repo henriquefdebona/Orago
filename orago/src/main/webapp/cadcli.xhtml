@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta charset="UTF-8"></meta>
+	<title>Cadastro de clientes</title>
+	
+	
+</h:head>
+<ui:define name="corpo">
+
+<p:messages id="msg" showDetail="true" closable="true" showSummary="true" />
+
+	<p:panel header="Clientes cadastrados">
+		<p:commandButton value="Cadastrar novo cliente" type="button" onclick="PF('dlgCadcli').show();" />
+		<p:commandButton value="Atualizar tabela" type="button" actionListener="#{disciplinaController.listaDisciplinas}" />
+	
+		<p:dialog header="Cadastrando novo cliente" widgetVar="dlgCadcli" modal="true" closable="no" draggable="no" appendTo="@(body)">
+			<h:form id="frmCad">
+				<h:panelGrid columns="2" id="cad">
+				
+					<p:outputLabel for="txtNome" value="Nome: "/>
+					<p:inputText id="txtNome" value="#{ClienteController.cli.email}" required="true" requiredMessage="Rua obrigatória"/>
+					
+				
+					<p:outputLabel for="txtEmail" value="E-mail: "/>
+					<p:inputText id="txtEmail" value="#{ClienteController.cli.email}" required="true" requiredMessage="Rua obrigatória"/>
+					
+					<p:outputLabel for="txtFone" value="Telefone: "/>
+					<p:inputText id="txtFone" value="#{ClienteController.cli.telefone}" required="true" requiredMessage="Rua obrigatória"/>
+					
+			
+					<p:outputLabel for="txtRua" value="Rua: "/>
+					<p:inputText id="txtRua" value="#{ClienteController.cli.end_rua}" required="true" requiredMessage="Rua obrigatória"/>
+				
+					<p:outputLabel for="txtBairro" value="Bairro: "/>
+					<p:inputText id="txtBairro" value="#{ClienteController.cli.end_bairro}" required="true" requiredMessage="Rua obrigatória"/>
+					
+				<p:outputLabel for="txtCdd" value="Cidade: "/>
+					<p:inputText id="txtCdd" value="#{ClienteController.cli.end_cidade}" required="true" requiredMessage="Rua obrigatória"/>
+					 
+					<p:outputLabel for="txtComplemento" value="Complemento: "/>
+					<p:inputText id="txtComplemento" value="#{ClienteController.cli.end_complemento}" required="true" requiredMessage="Rua obrigatória"/>
+					
+					<p:outputLabel for="txtUf" value="UF: "/>
+					<p:inputText id="txtUf" value="#{ClienteController.cli.end_uf}" required="true" requiredMessage="Rua obrigatória"/>
+					
+					<p:outputLabel for="CEP" value="CEP: "/>
+					<p:inputText id="CEP" value="#{ClienteController.cli.end_cep}" required="true" requiredMessage="Rua obrigatória"/>
+					
+					<p:outputLabel for="CPF_CNPJ" value="CPF/CNPJ: "/>
+					<p:inputText id="CPF_CNPJ" value="#{ClienteController.cli.cpf_cnpj}" required="true" requiredMessage="Rua obrigatória"/>
+					
+					<p:commandButton value="Cadastrar" actionListener="#{ClienteController.salvar}" update="frmCad:cad msg frmTblcli" onclick="PF('dlgCadcli').hide();" />
+					<p:commandButton value="Cancelar" type="button" onclick="PF('dlgCadcli').hide();" />
+			
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</p:panel>
+	
+	
+	<h:form id="frmTblcli">
+		<p:dataTable id="tblcli" var="cli" value="#{ClienteController.listacli}" emptyMessage="Não há dados!" reflow="true" >
+		
+			<p:column headerText="Rua" sortBy="#{cli.end_rua}">
+        		<h:outputText value="#{cli.end_rua}" />
+        	</p:column>
+        	
+        	<p:column headerText="Numero">
+        		<h:outputText value="#{cli.end_numero}" />
+        	</p:column>
+        	
+        	<p:column headerText="Bairro" sortBy="#{cli.end_bairro}">
+        		<h:outputText value="#{cli.end_bairro}" />
+        	</p:column>
+        	
+        	<p:column headerText="Cidade" sortBy="#{cli.end_cidade}">
+        		<h:outputText value="#{cli.end_cidade}" />
+        	</p:column>
+        	
+        	<p:column headerText="UF" sortBy="#{cli.end_uf}">
+        		<h:outputText value="#{cli.end_uf}" />
+        	</p:column>
+        	
+        	<p:column headerText="E-mail" sortBy="#{cli.email}">
+        		<h:outputText value="#{cli.email}" />
+        	</p:column>
+        	
+        	<p:column headerText="Telefone" sortBy="#{cli.telefone}">
+        		<h:outputText value="#{cli.telefone}" />
+        	</p:column>
+        	
+        	<p:column headerText="Operações">
+        		<p:commandButton icon="ui-icon-pencil" actionListener="#{ClienteController.edita}" update="frmCad:cad" onclick="PF('dlgCadcli').show();">
+        			<f:attribute name="contatoEdita" value="#{d}" />
+        		</p:commandButton>
+        		
+        		<p:commandButton icon="ui-icon-trash" actionListener="#{ClienteController.excluir}" update="">
+        			<p:confirm header="Confirmação" message="Excluir a disciplina selecionada?" icon="ui-icon-alert"></p:confirm>
+        			<f:attribute name="contatoExcluir" value="#{d}" />
+        		</p:commandButton>
+        	</p:column>
+        	
+		</p:dataTable>
+		
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			
+		</p:confirmDialog>
+		
+		</h:form>
+</ui:define>
+</ui:composition>
