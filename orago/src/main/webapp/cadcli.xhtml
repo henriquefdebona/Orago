@@ -23,7 +23,7 @@
 				<h:panelGrid columns="2" id="cad">
 				
 					<p:outputLabel for="txtNome" value="Nome: "/>
-					<p:inputText id="txtNome" value="#{ClienteController.cli.email}" required="true" requiredMessage="Rua obrigatória"/>
+					<p:inputText id="txtNome" value="#{ClienteController.cli.nome}" required="true" requiredMessage="Rua obrigatória"/>
 					
 				
 					<p:outputLabel for="txtEmail" value="E-mail: "/>
@@ -65,18 +65,19 @@
 	
 	<h:form id="frmTblcli">
 		<p:dataTable id="tblcli" var="cli" value="#{ClienteController.listacli}" emptyMessage="Não há dados!" reflow="true" >
+			
+			<p:column headerText="Nome" sortBy="#{cli.nome}">
+        		<h:outputText value="#{cli.nome}" />
+        	</p:column>
 		
-			<p:column headerText="Rua" sortBy="#{cli.end_rua}">
-        		<h:outputText value="#{cli.end_rua}" />
+			<p:column headerText="E-mail" sortBy="#{cli.email}">
+        		<h:outputText value="#{cli.email}" />
         	</p:column>
         	
-        	<p:column headerText="Numero">
-        		<h:outputText value="#{cli.end_numero}" />
+        	<p:column headerText="Telefone">
+        		<h:outputText value="#{cli.telefone}" />
         	</p:column>
         	
-        	<p:column headerText="Bairro" sortBy="#{cli.end_bairro}">
-        		<h:outputText value="#{cli.end_bairro}" />
-        	</p:column>
         	
         	<p:column headerText="Cidade" sortBy="#{cli.end_cidade}">
         		<h:outputText value="#{cli.end_cidade}" />
@@ -86,12 +87,8 @@
         		<h:outputText value="#{cli.end_uf}" />
         	</p:column>
         	
-        	<p:column headerText="E-mail" sortBy="#{cli.email}">
-        		<h:outputText value="#{cli.email}" />
-        	</p:column>
-        	
-        	<p:column headerText="Telefone" sortBy="#{cli.telefone}">
-        		<h:outputText value="#{cli.telefone}" />
+        	<p:column headerText="CPF/CNPJ" sortBy="#{cli.cpf_cnpj}">
+        		<h:outputText value="#{cli.cpf_cnpj}" />
         	</p:column>
         	
         	<p:column headerText="Operações">
