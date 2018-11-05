@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <ui:composition template="/WEB-INF/templates/template2.xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html" 
@@ -91,4 +92,110 @@
 		
 		</h:form>
 </ui:define>
+=======
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta charset="UTF-8"></meta>
+	<title>Cadastro de processos/recursos/incidentes</title>
+	
+	
+</h:head>
+<ui:define name="corpo">
+
+<p:messages id="msg" showDetail="true" closable="true" showSummary="true" />
+
+	<p:panel header="Processos, recursos e incidentes cadastrados">
+		<p:commandButton value="Cadastrar novo processo/recurso/incidente" type="button" onclick="PF('dlgCadCtt').show();"  />
+		<p:commandButton value="Atualizar tabela" type="button" actionListener="#{disciplinaController.listaDisciplinas}" />
+	
+		<p:dialog header="Cadastrando novo processo/recurso" widgetVar="dlgCadCtt" modal="true" closable="no" draggable="no" appendTo="@(body)">
+			<h:form id="frmCad" style="height: 300px;width: 300px;">
+				
+				<p:outputLabel for="txtTitulo" value="Titulo: "/>
+					<p:inputText id="txtTitulo" value="" required="true" requiredMessage="E-mail obrigatório"/>
+				
+				
+				<h5>Descrição do processo/recurso/incidente:</h5>
+   				 <p:inputTextarea rows="5" cols="30" counter="display" maxlength="4000" counterTemplate="{0} caracteres restantes." autoResize="false" style="height: 100px;width: 353px;" />
+   					 <h:outputText id="display" />
+				
+					
+					<h:panelGrid columns="2" id="cad">
+					<p:commandButton value="Cancelar" type="button" onclick="PF('dlgCadCtt').hide();" />
+					<p:commandButton value="Cadastrar" actionListener="#{ContatoController.salvar}" update="frmCad:cad msg frmTblCtt" onclick="PF('dlgCadCtt').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</p:panel>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<h:form id="frmTblCtt">
+		<p:dataTable id="tblCtt" var="ctt" value="#{ContatoController.listaCtt}" emptyMessage="Não há dados!" reflow="true" >
+		
+			<p:column headerText="Rua" sortBy="#{ctt.rua}">
+        		<h:outputText value="#{ctt.rua}" />
+        	</p:column>
+        	
+        	<p:column headerText="Numero">
+        		<h:outputText value="#{ctt.numero}" />
+        	</p:column>
+        	
+        	<p:column headerText="Bairro" sortBy="#{ctt.bairro}">
+        		<h:outputText value="#{ctt.bairro}" />
+        	</p:column>
+        	
+        	<p:column headerText="Cidade" sortBy="#{ctt.cidade}">
+        		<h:outputText value="#{ctt.cidade}" />
+        	</p:column>
+        	
+        	<p:column headerText="UF" sortBy="#{ctt.uf}">
+        		<h:outputText value="#{ctt.uf}" />
+        	</p:column>
+        	
+        	<p:column headerText="E-mail" sortBy="#{ctt.email}">
+        		<h:outputText value="#{ctt.email}" />
+        	</p:column>
+        	
+        	<p:column headerText="Telefone" sortBy="#{ctt.telefone}">
+        		<h:outputText value="#{ctt.telefone}" />
+        	</p:column>
+        	
+        	<p:column headerText="Operações">
+        		<p:commandButton icon="ui-icon-pencil" actionListener="#{ContatoController.edita}" update="frmCad:cad" onclick="PF('dlgCadCtt').show();">
+        			<f:attribute name="contatoEdita" value="#{d}" />
+        		</p:commandButton>
+        		
+        		<p:commandButton icon="ui-icon-trash" actionListener="#{ContatoController.excluir}" update="">
+        			<p:confirm header="Confirmação" message="Excluir a disciplina selecionada?" icon="ui-icon-alert"></p:confirm>
+        			<f:attribute name="contatoExcluir" value="#{d}" />
+        		</p:commandButton>
+        	</p:column>
+        	
+		</p:dataTable>
+		
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			
+		</p:confirmDialog>
+		
+		</h:form>
+</ui:define>
+>>>>>>> branch 'master' of https://github.com/henriquefdebona/Orago
 </ui:composition>
