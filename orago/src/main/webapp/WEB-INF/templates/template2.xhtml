@@ -15,18 +15,17 @@
 				<p:menu>
 				
 					<p:submenu label="Cadastros" icon="ui-icon-plusthick">
-						<p:menuitem value="Cadastro de Clientes" url="http://localhost:8080/pweb/faces/cadcli.xhtml" />
-						<p:menuitem value="Cadastro de Advogados" url="http://localhost:8080/pweb/faces/cadadvg.xhtml" />
-						<p:menuitem value="Cadastro de Agenda" url="#" />
-						<p:menuitem value="Processos/Recursos" url="http://localhost:8080/pweb/faces/cadprocrec.xhtml" />
+						<p:menuitem value="Cadastro de Clientes" url="http://localhost:8080/orago/faces/cadcli.xhtml" />
+						<p:menuitem value="Cadastro de Advogados" url="http://localhost:8080/orago/faces/cadadvg.xhtml" />
+						<p:menuitem value="Cadastro de Agenda" url="http://localhost:8080/orago/faces/cadagenda.xhtml" />
+						<p:menuitem value="Processos/Recursos" url="http://localhost:8080/orago/faces/cadprocrec.xhtml" />
 					</p:submenu>
  
 					<p:submenu label="Consulta" icon="ui-icon-search">
-						<p:menuitem value="Clientes cadastrados" url="http://localhost:8080/pweb/faces/cadcli.xhtml" />
-						<p:menuitem value="Advogados cadastrados" url="http://localhost:8080/pweb/faces/cadadvg.xhtml" />
-						<p:menuitem value="Processos/Recursos" url="http://localhost:8080/pweb/faces/cadprocrec.xhtml" />
-						<p:menuitem value="Agenda" url="#" />
-            
+						<p:menuitem value="Clientes cadastrados" url="http://localhost:8080/orago/faces/cadcli.xhtml" />
+						<p:menuitem value="Advogados cadastrados" url="http://localhost:8080/orago/faces/cadadvg.xhtml" />
+						<p:menuitem value="Processos/Recursos" url="http://localhost:8080/orago/faces/cadprocrec.xhtml" />
+						<p:menuitem value="Agenda" url="http://localhost:8080/orago/faces/cadagenda.xhtml" />
 					</p:submenu>
 					
 					<p:submenu>
@@ -44,9 +43,7 @@
 			<div id = "area">
 				<h:graphicImage library="projeto" name="logo.png" width="179"/>
 			</div>
-			
-				<ui:insert name="corpo" style="width:5px"/>
-			
+			<ui:insert name="corpo" style="width:5px"/>
 		</div>
 	</p:layoutUnit>
 	</p:layout>

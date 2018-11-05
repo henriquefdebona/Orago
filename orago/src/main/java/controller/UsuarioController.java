@@ -111,7 +111,7 @@ public void exclui() {
 			t.commit();
 			usr = new Usuario();
 			listarContatos();
-			addMessage("Cadastro", "Usuario deletado com sucesso!");
+			addMessage("Exclusão", "Usuário deletado com sucesso!");
 		} catch (Exception e) {
 			if(t!=null) {
 				t.rollback();
@@ -139,7 +139,7 @@ public void salvar() {
 		t.commit();
 		usr = new Usuario();
 		listarContatos();
-		addMessage("Cadastro", "Usuario cadastrado com sucesso!");
+		addMessage("Cadastro", "Usuário cadastrado com sucesso!");
 	} catch (Exception e) {
 		if(t!=null) {
 			t.rollback();

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<h:head>
+		<meta charset="UTF-8"></meta>
+		<title>Agenda (Dashboard)</title>
+	</h:head>
+	<ui:define name="corpo">
+		<p:panel header="Agenda">
+			<p:growl id="body" showDetail="true" />
+			<h:form id="cadagenda">
+				<h:panelGrid columnClasses="frmAgenda">
+			    	<p:schedule id="cadagenda" value="#{CadAgendaController.init}" widgetVar="cadagenda" timeZone="GMT+3">
+			
+			        	<p:ajax event="dateSelect" listener="#{CadAgendaController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+			        	<p:ajax event="eventSelect" listener="#{CadAgendaController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+			        	<p:ajax event="eventMove" listener="#{CadAgendaController.onEventMove}" update="messages" />
+			        	<p:ajax event="eventResize" listener="#{CadAgendaController.onEventResize}" update="messages" />
+			
+			    	</p:schedule>
+				</h:panelGrid>
+			</h:form>
+			<p:dialog header="Cadastrando/Editando Evento" widgetVar="eventDialog" modal="true" closable="no" draggable="no">
+				<h:form id="frmCad">
+					<h:panelGrid columns="1" id="cad">
+				
+						<p:outputLabel for="txtNome" value="Nome: "/>
+						<p:inputText id="txtNome" value="#{UsuarioController.usr.nome}" required="true" requiredMessage="Nome obrigatório"/>
+				
+						<p:outputLabel for="txtEmail" value="E-mail: "/>
+						<p:inputText id="txtEmail" value="#{UsuarioController.usr.email}" required="true" requiredMessage="E-mail obrigatório"/>
+				
+				   	 	<p:outputLabel for="txtLogin" value="Login: "/>
+						<p:inputText id="txtLogin" value="#{UsuarioController.usr.login}" required="true" requiredMessage="Login obrigatório"/>
+					 
+						<p:outputLabel for="txtSenha" value="Senha: "/>
+						<p:inputText id="txtSenha" value="#{UsuarioController.usr.senha}" required="true" requiredMessage="Senha obrigatória"/>
+			
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</p:panel>
+		<style type="text/css">
+		    .value {
+		        width: 1000px;
+		    }
+		</style>
+	</ui:define>
+</ui:composition>

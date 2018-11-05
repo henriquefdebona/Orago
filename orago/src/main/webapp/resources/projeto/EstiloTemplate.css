@@ -1,0 +1,133 @@
+body {
+	font-size: 16px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	background: #f3f3f3;
+}
+
+/*#navegacao {
+	background: #F1F3F5;
+	border-bottom: 5px solid #F1F3F5;
+	height: 450px;
+	width: 100%;
+	top: 0;
+	z-index: 999;
+	
+	padding: 5x;
+}*/
+
+#menu {
+	float: left;
+	
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+	padding: 5px 10px;
+}
+a:link {
+	color: #838383;
+}
+
+
+a:visited {
+	color: #838383;
+}
+
+
+.ui-menubar,.ui-menu-child,.ui-menu:hover {
+	color: #fff;
+	background: #6a98e2;
+	border-radius: 150px;
+}
+
+a:active {
+	color: #535353;
+}
+
+
+/*Classes*/
+.verde {
+	color: #b9c941;
+}
+
+footer{
+	background-color: #ccc;
+	text-align: center;
+	padding-top: 100px;
+	height: 40%
+}
+
+.ui-datatable{
+	font-size: 12px !important;
+}
+
+.vermelho{
+	background-color: #FF0000 !important;
+	color: #0000FF !important;
+}
+
+.verde{
+	background-color: #00FF00 !important;
+}
+
+.ui-menubar,.ui-menu-child,.ui-menu {
+    background: #F1F3F5 !important;
+}
+
+
+.navegacao__menu{
+	float: right;
+}
+
+.botao-chaveador{
+	background-image: url("bar.jpg");
+	width: 24px;
+	height: 24px;
+	border: 0;
+}
+
+@media(min-width: 992px){
+	.botao-chaveador{
+		display: none;
+	}
+}
+
+.menu{
+	list-style: none;
+	margin: 0;
+	font-size: 1.4rem;
+}
+
+.menu__item{
+	display: block;
+	line-height: 3;
+}
+
+@media(max-width: 991px){
+	.menu{
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: 200px;
+		background-color: #fbfbfb;
+		border-right: 1px solid #eee;
+	}
+	.menu--exibindo{
+		display: block;
+	}
+	.menu__item{
+		display: block;
+		line-height: 3;
+	}
+}
+
+@media(min-width: 992px){
+	.menu__item{
+		display: inline-block;
+		line-height: 3;
+		padding-right: 20px;
+	}
+}

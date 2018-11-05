@@ -19,7 +19,7 @@
 	
 		<p:dialog header="Cadastrando novo usuário" widgetVar="dlgCadUsr" modal="true" closable="no" draggable="no">
 			<h:form id="frmCad">
-				<h:panelGrid columns="2" id="cad">
+				<h:panelGrid columns="1" id="cad">
 			
 					<p:outputLabel for="txtNome" value="Nome: "/>
 					<p:inputText id="txtNome" value="#{UsuarioController.usr.nome}" required="true" requiredMessage="Nome obrigatório"/>
@@ -47,7 +47,7 @@
 	<h:form id="frmTblUsr">
 		<p:dataTable id="tblCtt" var="usr" value="#{UsuarioController.listaUsr}" emptyMessage="Não há dados!" reflow="true" >
         	
-        	<p:column headerText="nome">
+        	<p:column headerText="Nome">
         		<h:outputText value="#{usr.nome}" />
         	</p:column>
         	<p:column headerText="E-mail" sortBy="#{usr.email}">
@@ -63,7 +63,7 @@
         		</p:commandButton>
         		
         		<p:commandButton icon="ui-icon-trash" actionListener="#{UsuarioController.excluir}" update="">
-        			<p:confirm header="Confirmação" message="Excluir a disciplina selecionada?" icon="ui-icon-alert"></p:confirm>
+        			<p:confirm header="Confirmação" message="Excluir o usuário selecionado?" icon="ui-icon-alert"></p:confirm>
         			<f:attribute name="contatoExcluir" value="#{d}" />
         		</p:commandButton>
         	</p:column>
