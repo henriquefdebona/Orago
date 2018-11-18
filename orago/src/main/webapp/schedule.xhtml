@@ -5,49 +5,48 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<h:head>
-		<meta charset="UTF-8"></meta>
-		<title>Agenda (Dashboard)</title>
-	</h:head>
-	<ui:define name="corpo">
-		<p:panel header="Agenda">
-			<p:growl id="body" showDetail="true" />
-			<h:form id="cadagenda">
-				<h:panelGrid columnClasses="frmAgenda">
-			    	<p:schedule id="cadagenda" value="#{CadAgendaController.init}" widgetVar="cadagenda" timeZone="GMT+3">
-			
-			        	<p:ajax event="dateSelect" listener="#{CadAgendaController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-			        	<p:ajax event="eventSelect" listener="#{CadAgendaController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-			        	<p:ajax event="eventMove" listener="#{CadAgendaController.onEventMove}" update="messages" />
-			        	<p:ajax event="eventResize" listener="#{CadAgendaController.onEventResize}" update="messages" />
-			
-			    	</p:schedule>
-				</h:panelGrid>
-			</h:form>
-			<p:dialog header="Cadastrando/Editando Evento" widgetVar="eventDialog" modal="true" closable="no" draggable="no">
-				<h:form id="frmCad">
-					<h:panelGrid columns="1" id="cad">
-				
-						<p:outputLabel for="txtNome" value="Nome: "/>
-						<p:inputText id="txtNome" value="#{UsuarioController.usr.nome}" required="true" requiredMessage="Nome obrigatório"/>
-				
-						<p:outputLabel for="txtEmail" value="E-mail: "/>
-						<p:inputText id="txtEmail" value="#{UsuarioController.usr.email}" required="true" requiredMessage="E-mail obrigatório"/>
-				
-				   	 	<p:outputLabel for="txtLogin" value="Login: "/>
-						<p:inputText id="txtLogin" value="#{UsuarioController.usr.login}" required="true" requiredMessage="Login obrigatório"/>
-					 
-						<p:outputLabel for="txtSenha" value="Senha: "/>
-						<p:inputText id="txtSenha" value="#{UsuarioController.usr.senha}" required="true" requiredMessage="Senha obrigatória"/>
-			
-					</h:panelGrid>
-				</h:form>
-			</p:dialog>
-		</p:panel>
-		<style type="text/css">
-		    .value {
-		        width: 1000px;
-		    }
-		</style>
-	</ui:define>
+<ui:define name="corpo">
+
+<style type="text/css">
+    .value {
+        width: 1000px;
+    }
+</style>
+ 
+ 
+<h:form>
+    <p:growl id="messages" showDetail="true" />
+      
+    <h:panelGrid columnClasses="value">
+        <h3 style="margin-top: 0">Agenda de Eventos</h3>
+        <p:schedule id="schedule" value="#{scheduleView.lazyEventModel}" widgetVar="myschedule" timeZone="GMT+3">
+ 
+            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+ 
+        </p:schedule>
+    </h:panelGrid>
+     
+    <p:dialog widgetVar="eventDialog" header="Detalhes do Evento" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Título:" />
+            <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
+ 
+            <p:outputLabel for="from" value="Início:" />
+            <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="GMT+3" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="to" value="Fim:" />
+            <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="GMT+3" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="allDay" value="Dia todo:" />
+            <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}" />
+ 
+            <p:commandButton type="reset" value="Limpar" />
+            <p:commandButton id="addButton" value="Salvar" action="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+        </h:panelGrid>
+    </p:dialog>    
+</h:form>
+</ui:define>
 </ui:composition>

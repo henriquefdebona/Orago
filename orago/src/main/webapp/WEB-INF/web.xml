@@ -19,9 +19,4 @@
   	<param-value>auto</param-value>
   </context-param>
   
-  <context-param>
-    <param-name>primefaces.SCHEDULE</param-name>
-	<param-value>omega</param-value>
-  </context-param>
-  
 </web-app>

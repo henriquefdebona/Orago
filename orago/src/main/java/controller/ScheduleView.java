@@ -3,37 +3,44 @@ package controller;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
- 
+import javax.faces.view.ViewScoped;
+
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
- 
+
 @ManagedBean
 @ViewScoped
-public class CadAgendaController implements Serializable {
+public class ScheduleView implements Serializable {
  
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 9173935474840317695L;
-
-	private ScheduleModel eventModel;
+    private ScheduleModel eventModel;
+     
+    private LazyScheduleModel lazyEventModel;
  
     private ScheduleEvent event = new DefaultScheduleEvent();
-    
+ 
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
+        lazyEventModel = new LazyScheduleModel();
+    }
+     
+    public Date getRandomDate(Date base) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(base);
+        date.add(Calendar.DATE, ((int) (Math.random()*30)) + 1);    //set random day of month
+         
+        return date.getTime();
     }
      
     public Date getInitialDate() {
@@ -47,6 +54,10 @@ public class CadAgendaController implements Serializable {
         return eventModel;
     }
      
+    public ScheduleModel getLazyEventModel() {
+        return lazyEventModel;
+    }
+     
     public ScheduleEvent getEvent() {
         return event;
     }
@@ -55,13 +66,13 @@ public class CadAgendaController implements Serializable {
         this.event = event;
     }
      
-    public void addEvent(ActionEvent actionEvent) {
+    public void addEvent() {
         if(event.getId() == null) {
             eventModel.addEvent(event);
-        }else {
+    	}else {
             eventModel.updateEvent(event);
-        } 
-        event = new DefaultScheduleEvent();
+    	}
+        //event = new DefaultScheduleEvent();
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
@@ -79,7 +90,7 @@ public class CadAgendaController implements Serializable {
     }
      
     public void onEventResize(ScheduleEntryResizeEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento alterado", "Dia:" + event.getDayDelta() + ", Minuto:" + event.getMinuteDelta());
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento modificado", "Dia:" + event.getDayDelta() + ", Minuto:" + event.getMinuteDelta());
          
         addMessage(message);
     }
