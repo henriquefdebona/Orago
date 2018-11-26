@@ -6,44 +6,106 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:define name="corpo">
-
-<style type="text/css">
-    .value {
-        width: 1000px;
-    }
-</style>
-
+ 
+<script type="text/javascript">
+		PrimeFaces.locales['pt'] = {
+		                closeText: 'Fechar',
+		                prevText: 'Anterior',
+		                nextText: 'Próximo',
+		                currentText: 'Começo',
+		                monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],
+		                dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+		                dayNamesMin: ['D','S','T','Q','Q','S','S'],
+		                weekHeader: 'Semana',
+		                firstDay: 1,
+		                isRTL: false,
+		                showMonthAfterYear: false,
+		                yearSuffix: '',
+		                timeOnlyTitle: 'Só Horas',
+		                timeText: 'Tempo',
+		                hourText: 'Hora',
+		                minuteText: 'Minuto',
+		                secondText: 'Segundo',
+		                currentText: 'Data Atual',
+		                ampm: false,
+		                month: 'Mês',
+		                week: 'Semana',
+		                day: 'Dia',
+		                allDayText : 'Todo Dia'
+		            };
+</script>
+ 
 <h:form>
     <p:growl id="messages" showDetail="true" />
       
     <h:panelGrid columnClasses="value">
         <h3 style="margin-top: 0">Agenda de Eventos</h3>
-        <p:schedule id="schedule" value="#{scheduleView.lazyEventModel}" widgetVar="myschedule" timeZone="GMT+3">
+        <p:schedule id="schedule" value="#{CadAgendaController.modeloEventoAgenda}" widgetVar="myschedule" timeZone="GMT+3" locale="pt">
  
-            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
-            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+            <p:ajax event="dateSelect" listener="#{CadAgendaController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{CadAgendaController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{CadAgendaController.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{CadAgendaController.onEventResize}" update="messages" />
  
         </p:schedule>
     </h:panelGrid>
      
     <p:dialog widgetVar="eventDialog" header="Detalhes do Evento" showEffect="clip" hideEffect="clip">
         <h:panelGrid id="eventDetails" columns="2">
-            <p:outputLabel for="title" value="Título:" />
-            <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
+            <p:outputLabel 
+            	for="title"
+            	value="Título:" 
+            />
+            <p:inputText
+            	id="title"
+            	value="#{CadAgendaController.agd.titulo}"
+            	required="true"
+            />
  
-            <p:outputLabel for="from" value="Início:" />
-            <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="GMT+3" pattern="dd/MM/yyyy HH:mm"/>
+            <p:outputLabel
+            	for="from"
+            	value="Início:"
+            />
+            <p:calendar 
+            	id="from"
+            	value="#{CadAgendaController.agd.dataInicio}"
+            	timeZone="GMT+3"
+            	pattern="dd/MM/yyyy HH:mm"
+            />
  
-            <p:outputLabel for="to" value="Fim:" />
-            <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="GMT+3" pattern="dd/MM/yyyy HH:mm"/>
+            <p:outputLabel
+            	for="to"
+            	value="Fim:"
+            />
+            <p:calendar
+            	id="to"
+            	value="#{CadAgendaController.agd.dataFim}"
+            	timeZone="GMT+3"
+            	pattern="dd/MM/yyyy HH:mm"
+            />
  
-            <p:outputLabel for="allDay" value="Dia todo:" />
-            <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}" />
+            <p:outputLabel
+            	for="allDay"
+            	value="Dia todo:"
+            />
+            <h:selectBooleanCheckbox
+            	id="allDay"
+            	value="#{CadAgendaController.agd.diaTodo}"
+            />
  
-            <p:commandButton type="reset" value="Limpar" />
-            <p:commandButton id="addButton" value="Salvar" action="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+            <p:commandButton
+            	type="reset"
+            	value="Limpar"
+            	action="#{CadAgendaController.exclui}"
+            />
+            <p:commandButton
+            	id="addButton"
+            	value="Salvar"
+            	action="#{CadAgendaController.addEvento}"
+            	oncomplete="PF('eventDialog').hide();PF('myschedule').update();"
+            />
         </h:panelGrid>
     </p:dialog>    
 </h:form>
