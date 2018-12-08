@@ -12,43 +12,42 @@ import javax.faces.event.ActionEvent;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import model.Usuario;
+import model.cadusuario;
 import util.HibernateUtil;
 
 @ManagedBean(name = "UsuarioController")
-//@ManagedBean
 @ViewScoped
 
 public class UsuarioController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private List<Usuario> listaUsr ;//= new ArrayList<>();
+	private List<cadusuario> listaUsr ;//= new ArrayList<>();
 	
 	private Session sessao;
 	
-	Usuario usr;
+	cadusuario usr;
 
-	public List<Usuario> getListaCtt() {
+	public List<cadusuario> getListaCtt() {
 		return listaUsr;
 	}
 
-	public List<Usuario> getListaUsr() {
+	public List<cadusuario> getListaUsr() {
 		return listaUsr;
 	}
 
-	public void setListaUsr(List<Usuario> listaUsr) {
+	public void setListaUsr(List<cadusuario> listaUsr) {
 		this.listaUsr = listaUsr;
 	}
 
-	public Usuario getUsr() {
+	public cadusuario getUsr() {
 		return usr;
 	}
 
-	public void setUsr(Usuario usr) {
+	public void setUsr(cadusuario usr) {
 		this.usr = usr;
 	}
 
-	public void setListaCtt(List<Usuario> listaUsr) {
+	public void setListaCtt(List<cadusuario> listaUsr) {
 		this.listaUsr = listaUsr;
 	}
 
@@ -60,18 +59,18 @@ public class UsuarioController implements Serializable{
 		this.sessao = sessao;
 	}
 
-	public Usuario getCtt() {
+	public cadusuario getCtt() {
 		return usr;
 	}
 
-	public void setCtt(Usuario usr) {
+	public void setCtt(cadusuario usr) {
 		this.usr = usr;
 	}
 	
 	
 	@PostConstruct
 	public void instanciaCtt() { //construtor que é chamado sempre que inicia tela disciplina
-		usr = new Usuario();
+		usr = new cadusuario();
 		listarContatos();
 		//listaDisciplinas();
 	}
@@ -81,7 +80,7 @@ public class UsuarioController implements Serializable{
 	public void listarContatos() {
 		Session sessaao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
-			Criteria consulta = sessaao.createCriteria(Usuario.class);
+			Criteria consulta = sessaao.createCriteria(cadusuario.class);
 			listaUsr = consulta.list();
 		} catch (Exception e) {
 			throw(e);
@@ -94,7 +93,7 @@ public class UsuarioController implements Serializable{
 	
 	
 	public void edita(ActionEvent evt) {
-		usr = (Usuario)evt.getComponent().getAttributes().get("contatoEdita");
+		usr = (cadusuario)evt.getComponent().getAttributes().get("UsuarioEdita");
 	}
 	
 	
@@ -109,7 +108,7 @@ public void exclui() {
 			t = sessao.beginTransaction();
 			sessao.delete(usr);
 			t.commit();
-			usr = new Usuario();
+			usr = new cadusuario();
 			listarContatos();
 			addMessage("Exclusão", "Usuário deletado com sucesso!");
 		} catch (Exception e) {
@@ -124,7 +123,7 @@ public void exclui() {
 	
 
 public void excluir(ActionEvent evt) {
-	usr = (Usuario)evt.getComponent().getAttributes().get("contatoExcluir");
+	usr = (cadusuario)evt.getComponent().getAttributes().get("UsuarioExcluir");
 	exclui();
 }
 
@@ -137,7 +136,7 @@ public void salvar() {
 		t = sessao.beginTransaction();
 		sessao.merge(usr);
 		t.commit();
-		usr = new Usuario();
+		usr = new cadusuario();
 		listarContatos();
 		addMessage("Cadastro", "Usuário cadastrado com sucesso!");
 	} catch (Exception e) {

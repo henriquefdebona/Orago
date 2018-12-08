@@ -12,7 +12,7 @@ import javax.faces.event.ActionEvent;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import model.Advogado;
+import model.cadadvogado;
 import util.HibernateUtil;
 
 @ManagedBean(name = "CadAdvgController")
@@ -22,17 +22,17 @@ import util.HibernateUtil;
 public class CadAdvgController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private List<Advogado> listaadvg ;//= new ArrayList<>();
+	private List<cadadvogado> listaadvg ;//= new ArrayList<>();
 	
 	private Session sessao;
 	
-	Advogado advg;
+	cadadvogado advg;
 
-	public List<Advogado> getListaadvg() {
+	public List<cadadvogado> getListaadvg() {
 		return listaadvg;
 	}
 
-	public void setListaadvg(List<Advogado> listaadvg) {
+	public void setListaadvg(List<cadadvogado> listaadvg) {
 		this.listaadvg = listaadvg;
 	}
 
@@ -44,18 +44,18 @@ public class CadAdvgController implements Serializable{
 		this.sessao = sessao;
 	}
 
-	public Advogado getadvg() {
+	public cadadvogado getadvg() {
 		return advg;
 	}
 
-	public void setadvg(Advogado advg) {
+	public void setadvg(cadadvogado advg) {
 		this.advg = advg;
 	}
 	
 	
 	@PostConstruct
-	public void instanciaadvg() { //construtor que é chamado sempre que inicia tela disciplina
-		advg = new Advogado();
+	public void instanciaadvg() { //construtor que é chamado sempre que inicia tela advogado
+		advg = new cadadvogado();
 		listarAdvogados();
 		//listaDisciplinas();
 	}
@@ -65,7 +65,7 @@ public class CadAdvgController implements Serializable{
 	public void listarAdvogados() {
 		Session sessaao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
-			Criteria consulta = sessaao.createCriteria(Advogado.class);
+			Criteria consulta = sessaao.createCriteria(cadadvogado.class);
 			listaadvg = consulta.list();
 		} catch (Exception e) {
 			throw(e);
@@ -78,13 +78,8 @@ public class CadAdvgController implements Serializable{
 	
 	
 	public void edita(ActionEvent evt) {
-		advg = (Advogado)evt.getComponent().getAttributes().get("AdvogadoEdita");
+		advg = (cadadvogado)evt.getComponent().getAttributes().get("AdvogadoEdita");
 	}
-	
-	
-	
-	
-	
 	
 public void exclui() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -93,7 +88,7 @@ public void exclui() {
 			t = sessao.beginTransaction();
 			sessao.delete(advg);
 			t.commit();
-			advg = new Advogado();
+			advg = new cadadvogado();
 			listarAdvogados();
 			addMessage("Cadastro", "Advogado deletado com sucesso!");
 		} catch (Exception e) {
@@ -108,7 +103,7 @@ public void exclui() {
 	
 
 public void excluir(ActionEvent evt) {
-	advg = (Advogado)evt.getComponent().getAttributes().get("AdvogadoExcluir");
+	advg = (cadadvogado)evt.getComponent().getAttributes().get("AdvogadoExcluir");
 	exclui();
 }
 
@@ -121,7 +116,7 @@ public void salvar() {
 		t = sessao.beginTransaction();
 		sessao.merge(advg);
 		t.commit();
-		advg = new Advogado();
+		advg = new cadadvogado();
 		listarAdvogados();
 		addMessage("Cadastro", "Advogado cadastrado com sucesso!");
 	} catch (Exception e) {

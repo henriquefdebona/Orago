@@ -12,7 +12,7 @@ import javax.faces.event.ActionEvent;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import model.Usuario;
+import model.cadusuario;
 import util.HibernateUtil;
 
 @ManagedBean(name = "CadUsrController")
@@ -22,17 +22,17 @@ import util.HibernateUtil;
 public class CadUsrController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private List<Usuario> listausr ;//= new ArrayList<>();
+	private List<cadusuario> listausr ;//= new ArrayList<>();
 	
 	private Session sessao;
 	
-	Usuario usr;
+	cadusuario usr;
 
-	public List<Usuario> getListausr() {
+	public List<cadusuario> getListausr() {
 		return listausr;
 	}
 
-	public void setListausr(List<Usuario> listausr) {
+	public void setListausr(List<cadusuario> listausr) {
 		this.listausr = listausr;
 	}
 
@@ -44,18 +44,17 @@ public class CadUsrController implements Serializable{
 		this.sessao = sessao;
 	}
 
-	public Usuario getusr() {
+	public cadusuario getusr() {
 		return usr;
 	}
 
-	public void setusr(Usuario usr) {
+	public void setusr(cadusuario usr) {
 		this.usr = usr;
 	}
 	
-	
 	@PostConstruct
 	public void instanciausr() { //construtor que é chamado sempre que inicia tela disciplina
-		usr = new Usuario();
+		usr = new cadusuario();
 		listarUsuarios();
 		//listaDisciplinas();
 	}
@@ -65,7 +64,7 @@ public class CadUsrController implements Serializable{
 	public void listarUsuarios() {
 		Session sessaao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
-			Criteria consulta = sessaao.createCriteria(Usuario.class);
+			Criteria consulta = sessaao.createCriteria(cadusuario.class);
 			listausr = consulta.list();
 		} catch (Exception e) {
 			throw(e);
@@ -74,26 +73,19 @@ public class CadUsrController implements Serializable{
 		}
 	}
 	
-	
-	
-	
 	public void edita(ActionEvent evt) {
-		usr = (Usuario)evt.getComponent().getAttributes().get("UsuarioEdita");
+		usr = (cadusuario)evt.getComponent().getAttributes().get("cadusuarioEdita");
 	}
 	
 	
-	
-	
-	
-	
-public void exclui() {
+	public void exclui() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction t = null;
 		try {
 			t = sessao.beginTransaction();
 			sessao.delete(usr);
 			t.commit();
-			usr = new Usuario();
+			usr = new cadusuario();
 			listarUsuarios();
 			addMessage("Cadastro", "Usuario deletado com sucesso!");
 		} catch (Exception e) {
@@ -106,40 +98,34 @@ public void exclui() {
 		}
 	}
 	
-
-public void excluir(ActionEvent evt) {
-	usr = (Usuario)evt.getComponent().getAttributes().get("UsuarioExcluir");
-	exclui();
-}
-
-	
-	
-public void salvar() {
-	Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-	Transaction t = null;
-	try {
-		t = sessao.beginTransaction();
-		sessao.merge(usr);
-		t.commit();
-		usr = new Usuario();
-		listarUsuarios();
-		addMessage("Cadastro", "Usuario cadastrado com sucesso!");
-	} catch (Exception e) {
-		if(t!=null) {
-			t.rollback();
-		}
-		throw(e);
-	}finally {
-		sessao.close();
+	public void excluir(ActionEvent evt) {
+		usr = (cadusuario)evt.getComponent().getAttributes().get("cadusuarioExcluir");
+		exclui();
 	}
-}
 	
+	public void salvar() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction t = null;
+		try {
+			t = sessao.beginTransaction();
+			sessao.merge(usr);
+			t.commit();
+			usr = new cadusuario();
+			listarUsuarios();
+			addMessage("Cadastro", "Usuario cadastrado com sucesso!");
+		} catch (Exception e) {
+			if(t!=null) {
+				t.rollback();
+			}
+			throw(e);
+		}finally {
+			sessao.close();
+		}
+	}
 	
-	
-	
-public void addMessage(String summary, String detail) {
-	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-	FacesContext.getCurrentInstance().addMessage(null, message);
-}
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
 	
 }

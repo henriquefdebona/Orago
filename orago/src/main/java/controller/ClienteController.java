@@ -12,35 +12,34 @@ import javax.faces.event.ActionEvent;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import model.Cliente;
+import model.cadcliente;
 import util.HibernateUtil;
 
 @ManagedBean(name = "ClienteController")
-//@ManagedBean
 @ViewScoped
 
 public class ClienteController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private List<Cliente> listacli ;//= new ArrayList<>();
+	private List<cadcliente> listacli ;//= new ArrayList<>();
 	
 	private Session sessao;
 	
-	Cliente cli;
+	cadcliente cli;
 
-	public Cliente getCli() {
+	public cadcliente getCli() {
 		return cli;
 	}
 
-	public void setCli(Cliente cli) {
+	public void setCli(cadcliente cli) {
 		this.cli = cli;
 	}
 
-	public List<Cliente> getListacli() {
+	public List<cadcliente> getListacli() {
 		return listacli;
 	}
 
-	public void setListacli(List<Cliente> listacli) {
+	public void setListacli(List<cadcliente> listacli) {
 		this.listacli = listacli;
 	}
 
@@ -52,26 +51,26 @@ public class ClienteController implements Serializable{
 		this.sessao = sessao;
 	}
 
-	public Cliente getcli() {
+	public cadcliente getcli() {
 		return cli;
 	}
 
-	public void setcli(Cliente cli) {
+	public void setcli(cadcliente cli) {
 		this.cli = cli;
 	}
 	
 	@PostConstruct
 	public void instanciacli() { //construtor que é chamado sempre que inicia tela disciplina
-		cli = new Cliente();
-		listarClientes();
+		cli = new cadcliente();
+		listarcadclientes();
 		//listaDisciplinas();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void listarClientes() {
+	public void listarcadclientes() {
 		Session sessaao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
-			Criteria consulta = sessaao.createCriteria(Cliente.class);
+			Criteria consulta = sessaao.createCriteria(cadcliente.class);
 			listacli = consulta.list();
 			System.out.println(listacli);
 		} catch (Exception e) {
@@ -82,7 +81,7 @@ public class ClienteController implements Serializable{
 	}
 	
 	public void edita(ActionEvent evt) {
-		cli = (Cliente)evt.getComponent().getAttributes().get("ClienteEdita");
+		cli = (cadcliente)evt.getComponent().getAttributes().get("cadclienteEdita");
 	}
 	
 	public void exclui() {
@@ -92,9 +91,9 @@ public class ClienteController implements Serializable{
 			t = sessao.beginTransaction();
 			sessao.delete(cli);
 			t.commit();
-			cli = new Cliente();
-			listarClientes();
-			addMessage("Cadastro", "Cliente excluído com sucesso!");
+			cli = new cadcliente();
+			listarcadclientes();
+			addMessage("Cadastro", "cadcliente excluído com sucesso!");
 		} catch (Exception e) {
 			if(t!=null) {
 				t.rollback();
@@ -106,7 +105,7 @@ public class ClienteController implements Serializable{
 	}
 	
 	public void excluir(ActionEvent evt) {
-		cli = (Cliente)evt.getComponent().getAttributes().get("ClienteExcluir");
+		cli = (cadcliente)evt.getComponent().getAttributes().get("cadclienteExcluir");
 		exclui();
 	}
 
@@ -117,8 +116,8 @@ public class ClienteController implements Serializable{
 			t = sessao.beginTransaction();
 			sessao.merge(cli);
 			t.commit();
-			cli = new Cliente();
-			listarClientes();
+			cli = new cadcliente();
+			listarcadclientes();
 			addMessage("Cadastro", "Cliente cadastrado com sucesso!");
 		} catch (Exception e) {
 			if(t!=null) {

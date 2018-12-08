@@ -16,7 +16,6 @@
 
 	<p:panel header="Advogados cadastrados">
 		<p:commandButton value="Cadastrar novo advogado" type="button" onclick="PF('dlgCadCtt').show();" />
-		<p:commandButton value="Atualizar tabela" type="button" actionListener="#{disciplinaController.listaDisciplinas}" />
 	
 		<p:dialog header="Cadastrando novo advogado" widgetVar="dlgCadCtt" modal="true" closable="no" draggable="no" appendTo="@(body)"  >
 			<h:form id="frmCad">
@@ -27,10 +26,10 @@
 					
 					<p:outputLabel for="console" value="Area de atuação:" />
         <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
-            <f:selectItem itemLabel="Tributario" itemValue="" />
-            <f:selectItem itemLabel="Criminal" itemValue="Xbox One" />
-            <f:selectItem itemLabel="Judiciário" itemValue="PS4" />
-            <f:selectItem itemLabel="Civil" itemValue="Wii U" />
+            <f:selectItem itemLabel="Tributario" itemValue="T" />
+            <f:selectItem itemLabel="Criminal" itemValue="C" />
+            <f:selectItem itemLabel="Judiciário" itemValue="J" />
+            <f:selectItem itemLabel="Civil" itemValue="V" />
         </p:selectOneMenu>
         
         <p:outputLabel for="console2" value="Advogado:" />
@@ -38,7 +37,7 @@
             <f:selectItem itemValue="end_cidade" itemLabel="#{ClienteController.listacli}" />
         </p:selectOneMenu>
 					
-					<p:commandButton value="Cadastrar" actionListener="#{ContatoController.salvar}" update="frmCad:cad msg frmTblCtt" onclick="PF('dlgCadCtt').hide();" />
+					<p:commandButton value="Cadastrar" actionListener="#{CadAvgController.salvar}" update="frmCad:cad msg frmTblCtt" onclick="PF('dlgCadCtt').hide();" />
 					<p:commandButton value="Cancelar" type="button" onclick="PF('dlgCadCtt').hide();" />
 			
 				</h:panelGrid>

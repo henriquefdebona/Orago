@@ -31,15 +31,11 @@
 		<!-- Cria as tabelas do banco de dados -->
 		<property name="hbm2ddl.auto">create</property>
 		
-		<!-- Mapeamento das entidades --> 
- 	   <!-- <mapping class="model.Disciplina"/> -->
- 	   <!-- <mapping class="model.AlunoN"/> -->
- 	   <!-- <mapping class="model.Contato"/> -->
- 	   <!-- <mapping class="model.Cidade"/> -->
- 	   <!-- <mapping class="model.Matricula" /> -->
- 	   <mapping class="model.Cliente" />
- 	   <mapping class="model.Usuario" />
- 	   <mapping class="model.Advogado" />
+		<!-- Mapeamento das entidades -->
+ 	   <mapping class="model.cadcliente"/>
+ 	   <mapping class="model.cadagenda"/>
+ 	   <mapping class="model.cadadvogado"/>
+ 	   <mapping class="model.cadusuario"/>
  	    
 	</session-factory>
 

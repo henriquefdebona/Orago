@@ -1,200 +1,86 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Calendar;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 
-import model.Agenda;
-import util.HibernateUtil;
+import model.cadagenda;
 
 @ManagedBean(name = "CadAgendaController")
 @ViewScoped
+public class CadAgendaController implements Serializable {
 
-public class CadAgendaController implements Serializable{
-
-	private static final long serialVersionUID = 1L;
-	private List<Agenda> listaAgd ;
-		
-	private Session sessao;
-		
-	Agenda agd;
-
-	public Agenda getAgd() {
-		return agd;
-	}
-
-	public void setAgd(Agenda agd) {
-		this.agd = agd;
-	}
-
-	public List<Agenda> getListaAgd() {
-		return listaAgd;
-	}
-
-	public void setListaAgd(List<Agenda> listaAgd) {
-		this.listaAgd = listaAgd;
-	}
-
-	public Session getSessao() {
-		return sessao;
-	}
-
-	public void setSessao(Session sessao) {
-		this.sessao = sessao;
-	}
-		
-	@SuppressWarnings("unchecked")
-	public void listarAgenda() {
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		try {
-			Criteria consulta = sessao.createCriteria(Agenda.class);
-			listaAgd = consulta.list();
-			System.out.println(listaAgd);
-		} catch (Exception e) {
-			throw(e);
-		}finally {
-			sessao.close();
-		}
-	}
-		
-	public void exclui(Agenda evento) {
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		Transaction t = null;
-		try {
-			t = sessao.beginTransaction();
-			sessao.delete(evento);
-			t.commit();
-			evento = new Agenda();
-			listarAgenda();
-			addMessage("Exclusão", "Evento excluído com sucesso!");
-		} catch (Exception e) {
-			if(t!=null) {
-				t.rollback();
-			}
-			throw(e);
-		}finally {
-			sessao.close();
-		}
-	}
-
-	public void salvar() {
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		Transaction t = null;
-		try {
-			t = sessao.beginTransaction();
-			sessao.merge(agd);
-			t.commit();
-			agd = new Agenda();
-			listarAgenda();
-			addMessage("Cadastro", "Evento cadastrado com sucesso!");
-		} catch (Exception e) {
-			if(t!=null) {
-				t.rollback();
-			}
-			throw(e);
-		}finally {
-			sessao.close();
-		}
-	}	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4375240861967728324L;
 	
-	/*Início*/
-     
-    private CadAgendaController modeloEventoAgenda;
- 
-    private Agenda evento = new Agenda();
- 
-    @PostConstruct
-    public void instanciaAgenda() {
-        
-        evento = new Agenda();
-    	
-    	listarAgenda();
-    	
-    }
-    
-    public CadAgendaController getModeloEventoAgenda() {
-		return modeloEventoAgenda;
+	private List<cadagenda> agendaList;
+	
+	public cadagenda agenda;
+	
+	public cadagenda getAgd() {
+		return agenda;
 	}
 
-	public void setModeloEventoAgenda(CadAgendaController modeloEventoAgenda) {
-		this.modeloEventoAgenda = modeloEventoAgenda;
+	public void setAgd(cadagenda agd) {
+		this.agenda = agd;
 	}
 
-	public Agenda getEvento() {
-		return evento;
+	public List<cadagenda> getListaAgd() {
+		return agendaList;
 	}
 
-	public Date getInitialDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
-        
-        return calendar.getTime();
-    }
-     
-    public CadAgendaController getLazyEventModel() {
-        return modeloEventoAgenda;
-    }
-     
-    public Agenda getEvent() {
-        return evento;
-    }
- 
-    public void setEvento(Agenda evento) {
-        this.evento = evento;
-    }
-     
-    public void addEvento(Agenda evento) {
-    	
-        if(evento.getSequencial() == null) {
-        	modeloEventoAgenda.addEvento(evento);
-    	}else {
-    		modeloEventoAgenda.editaEvento(evento);
-    	}
-        
-        evento = new Agenda();
-        salvar();
-    }
-
-    public void editaEvento(Agenda evento) {
-        int index = -1;
-
-        for (int i = 0; i < listaAgd.size(); i++) {
-            if (listaAgd.get(i).getSequencial().equals(evento.getSequencial())) {
-                index = i;
-
-                break;
-            }
-        }
-
-        if (index >= 0) {
-        	listaAgd.set(index, (Agenda) listaAgd);
-        }
-    }
-    
-	public void excluirEvento(Agenda evento) {
-		exclui(evento);
+	public void setAgendaList(List<cadagenda> agendaList) {
+		this.agendaList = agendaList;
 	}
-    
+	
+	public void instanciaAgd() throws SQLException {
+		agenda = new cadagenda();
+		listarAgenda();
+	}
+	
+	public void listarAgenda() throws SQLException {
+		agenda.listarAgenda();
+	}
+	
+	public void edita(ActionEvent evt) {
+		agenda = (cadagenda)evt.getComponent().getAttributes().get("cadagendaEdita");
+	}
+	
+	public void excluir() throws SQLException{
+		
+		agenda.excluir(agenda);
+		addMessage("Exclusão", "Evento excluído com sucesso!");
+		
+	}
+	
+	public void salvar() throws SQLException {
+		agenda.salvar();
+	}
+	
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+     
     public void onEventSelect(SelectEvent selectEvent) {
-        evento = (Agenda) selectEvent.getObject();
+        agenda = (cadagenda) selectEvent.getObject();
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        evento = new Agenda();
+    	agenda = new cadagenda("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -212,12 +98,4 @@ public class CadAgendaController implements Serializable{
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-	
-	/*Fim*/
-	
-	public void addMessage(String summary, String detail) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-		
 }

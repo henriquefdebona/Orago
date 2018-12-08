@@ -6,7 +6,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
-	private static SessionFactory fabricaDeSessoes = criarFabricaDeSessoes();
+	
+	private transient static SessionFactory fabricaDeSessoes = criarFabricaDeSessoes();
 
 	public static SessionFactory getFabricaDeSessoes() {
 		return fabricaDeSessoes;
@@ -20,7 +21,7 @@ public class HibernateUtil {
 			
 			SessionFactory fabrica = configuracao.buildSessionFactory(registro);
 			
-			System.out.println("rolou");
+			System.out.println("Conectou!");
 			
 			return fabrica;
 		} catch (Throwable ex) {

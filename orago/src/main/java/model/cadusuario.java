@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Usuario implements Serializable{
+public class cadusuario implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -89,7 +89,7 @@ public class Usuario implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		cadusuario other = (cadusuario) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
